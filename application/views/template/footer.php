@@ -194,3 +194,102 @@ function toggle(source) {
     }
      
 </script>
+<script type="text/javascript">
+    
+    var rupiah = document.getElementById('harga');
+    rupiah.addEventListener('keyup', function(e){
+    //   // tambahkan 'Rp.' pada saat form di ketik
+    //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+      rupiah.value = formatRupiah(this.value, 'Rp. ');
+    });
+ 
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix){
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split       = number_string.split(','),
+      sisa        = split[0].length % 3,
+      rupiah        = split[0].substr(0, sisa),
+      ribuan        = split[0].substr(sisa).match(/\d{3}/gi);
+ 
+      // tambahkan titik jika yang di input sudah menjadi angka ribuan
+      if(ribuan){
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+ 
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+  </script>
+    <script>
+  $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
+    // Kita sembunyikan dulu untuk loadingnya
+    $("#tujuan").change(function(){ // Ketika user mengganti atau memilih data provinsi
+    
+      $.ajax({
+        type: "POST", // Method pengiriman data bisa dengan GET atau POST
+        url: "<?php echo base_url("index.php/C_Transaksi/cek_harga"); ?>", // Isi dengan url/path file php yang dituju
+        data: {id_harga : $("#tujuan").val()}, // data yang akan dikirim ke file yang dituju
+        dataType: "json",
+        beforeSend: function(e) {
+          if(e && e.overrideMimeType) {
+            e.overrideMimeType("application/json;charset=UTF-8");
+          }
+        },
+        success: function(response){ // Ketika proses pengiriman berhasil
+          // set isi dari combobox kota
+          // lalu munculkan kembali combobox kotanya
+          // $("#nama_suplier").html("aaaa");
+
+          $('#min').val(response.min);
+          $('#harga').val(response.harga);
+        },
+        error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+          alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+        }
+      });
+    });
+  });
+  </script>
+
+<script type="text/javascript">
+
+  function Calculate(){
+      var a = document.getElementById('panjang').value;
+      var b = document.getElementById('lebar').value;
+      var c = document.getElementById('tinggi').value;
+
+      var bilangan = a*b*c;
+
+      document.getElementById('volume').value = bilangan ;   
+  };
+
+function Calculatetotal(){
+      var d = document.getElementById('harga').value;
+      var e = document.getElementById('min').value;
+      var f = document.getElementById('berat').value;
+
+      var total = (d/e)*f;
+
+      document.getElementById('biayakirim').value = total ;  
+      document.getElementById('ppn').value = total ;  
+  };
+
+  function Calculatetot(){
+      var g = document.getElementById('biayakirim').value;
+      var h = document.getElementById('biayapacking').value;
+      var i = document.getElementById('asuransi').value;
+      var tot = g+h+i*1;
+
+      document.getElementById('total').value = tot ;  
+  };
+  var k = document.getElementById('total').value;
+    $('#cekppn').click(function() {
+        var cb1 = $('#cekppn').is(':checked');
+            $('#ppn').removeAttr('disabled');
+            var l = k*1/100;
+            var m = k+l*1;
+            $('#ppn').val(l);
+            $('#total').val(m);
+    });
+</script>
