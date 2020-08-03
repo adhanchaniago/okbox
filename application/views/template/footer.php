@@ -106,6 +106,42 @@
     });
   });
   </script>
+
+<script type='text/javascript'>
+    var error = 1; // nilai default untuk error 1
+ 
+    function cek_resi(){
+        $("#pesan_resi").hide();
+ 
+        var noresi = $("#noresi").val();
+ 
+        if(noresi != ""){
+            $.ajax({
+                url: "<?php echo site_url() . '/C_Transaksi/cek_resi'; ?>", //arahkan pada proses_tambah di controller member
+                data: 'noresi='+noresi,
+                type: "POST",
+                success: function(msg){
+                    if(msg==1){
+                        $("#pesan_resi").css("color","#fc5d32");
+                        $("#noresi").css("border-color","#fc5d32");
+                        $("#pesan_resi").html("Maaf No Resi sudah dipakai.");
+ 
+                        error = 1;
+                    }else{
+                        $("#pesan_resi").css("color","#59c113");
+                        $("#noresi").css("border-color","#59c113");
+                        $("#pesan_resi").html("No Resi anda valid");
+                        error = 0;
+                    }
+ 
+                    $("#pesan_resi").fadeIn(1000);
+                }
+            });
+        }       
+         
+    }
+     
+</script>
 <script type='text/javascript'>
     var error = 1; // nilai default untuk error 1
  
@@ -198,11 +234,26 @@ function toggle(source) {
     
     var rupiah = document.getElementById('harga');
     rupiah.addEventListener('keyup', function(e){
-    //   // tambahkan 'Rp.' pada saat form di ketik
-    //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
       rupiah.value = formatRupiah(this.value, 'Rp. ');
     });
- 
+
+    // var asuransi = document.getElementById('asuransi');
+    // if(asuransi){
+    //   asuransi.addEventListener('keyup', function(e){
+    //   //   // tambahkan 'Rp.' pada saat form di ketik
+    //   //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    //     asuransi.value = formatRupiah(this.value, 'Rp. ');
+    //   });
+    // }
+
+    // var biayapacking = document.getElementById('biayapacking');
+    // if(biayapacking){
+    //   biayapacking.addEventListener('keyup', function(e){
+    //   //   // tambahkan 'Rp.' pada saat form di ketik
+    //   //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    //     biayapacking.value = formatRupiah(this.value, 'Rp. ');
+    //   });
+    // }
     /* Fungsi formatRupiah */
     function formatRupiah(angka, prefix){
       var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -242,7 +293,7 @@ function toggle(source) {
           // $("#nama_suplier").html("aaaa");
 
           $('#min').val(response.min);
-          $('#harga').val(response.harga);
+          $('#hargakg').val(response.harga);
         },
         error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
           alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
@@ -264,32 +315,128 @@ function toggle(source) {
       document.getElementById('volume').value = bilangan ;   
   };
 
-function Calculatetotal(){
-      var d = document.getElementById('harga').value;
+  function startCalculatetotal(){
+
+    var intervala=setInterval("Calculate_total()",10);
+  }; 
+
+function Calculate_total(){
       var e = document.getElementById('min').value;
-      var f = document.getElementById('berat').value;
+      var f = (document.getElementById('berat').value==''?0:parseInt(document.getElementById('berat').value));
+      var d = (document.getElementById('hargakg').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('hargakg').value.replace(/[^0-9]/g,'')));
+      if (e > f){
+        var total = d;
+      } else {
+        var total = ((d/e)*f);
+      }
+      var lihatbiayakirim = Math.ceil(total);
 
-      var total = (d/e)*f;
+      var numbertotal = lihatbiayakirim.toString(),
+        sisa  = numbertotal.length % 3,
+        rupiah  = numbertotal.substr(0, sisa),
+        ribuan  = numbertotal.substr(sisa).match(/\d{3}/g);
+          
+      if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
 
-      document.getElementById('biayakirim').value = total ;  
-      document.getElementById('ppn').value = total ;  
+      document.getElementById('biayakirim').value ='Rp. '+formatRupiah(rupiah); 
+      // document.getElementById('ppn').value = 'Rp. '+formatRupiah(rupiah) ;   
   };
 
+  function stopCalctotal(){
+    clearInterval(intervala);
+  };
+
+  function starttotal(){
+
+    var intervaltotal=setInterval("Calculatetot()",10);
+
+  }; 
   function Calculatetot(){
-      var g = document.getElementById('biayakirim').value;
-      var h = document.getElementById('biayapacking').value;
-      var i = document.getElementById('asuransi').value;
-      var tot = g+h+i*1;
 
-      document.getElementById('total').value = tot ;  
+    var asuransi = document.getElementById('asuransi');
+    if(asuransi){
+      asuransi.addEventListener('keyup', function(e){
+      //   // tambahkan 'Rp.' pada saat form di ketik
+      //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        asuransi.value = formatRupiah(this.value, 'Rp. ');
+      });
+    }
+
+    var biayapacking = document.getElementById('biayapacking');
+    if(biayapacking){
+      biayapacking.addEventListener('keyup', function(e){
+      //   // tambahkan 'Rp.' pada saat form di ketik
+      //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        biayapacking.value = formatRupiah(this.value, 'Rp. ');
+      });
+    }
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix){
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split       = number_string.split(','),
+      sisa        = split[0].length % 3,
+      rupiah        = split[0].substr(0, sisa),
+      ribuan        = split[0].substr(sisa).match(/\d{3}/gi);
+ 
+      // tambahkan titik jika yang di input sudah menjadi angka ribuan
+      if(ribuan){
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+ 
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+
+      var g = (document.getElementById('biayakirim').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('biayakirim').value.replace(/[^0-9]/g,'')));
+      var h = (document.getElementById('biayapacking').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('biayapacking').value.replace(/[^0-9]/g,'')));
+      var i = (document.getElementById('asuransi').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('asuransi').value.replace(/[^0-9]/g,'')));
+      // var j = (document.getElementById('asuransi').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('asuransi').value.replace(/[^0-9]/g,'')));
+      if ($('#cekppn').is(':checked')){
+          var l = g/100;
+
+          var lihatppn = Math.ceil(l);
+          var ppn = lihatppn.toString(),
+          sisa  = ppn.length % 3,
+          rupiah  = ppn.substr(0, sisa),
+          ribuan  = ppn.substr(sisa).match(/\d{3}/g);
+            
+          if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+          }
+          
+          document.getElementById('ppn').value = 'Rp. '+formatRupiah(rupiah) ;   
+        };
+
+        if (document.getElementById('cekppn').checked === false){          
+          document.getElementById('ppn').value = 'Rp. 0' ;   
+        };
+
+      var o = (document.getElementById('ppn').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('ppn').value.replace(/[^0-9]/g,'')));
+      var tot = (g*1)+(h*1)+(i*1)+(o*1);
+
+      var numbertotal = tot.toString(),
+        sisa  = numbertotal.length % 3,
+        rupiah  = numbertotal.substr(0, sisa),
+        ribuan  = numbertotal.substr(sisa).match(/\d{3}/g);
+          
+      if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+
+      document.getElementById('total').value = 'Rp. '+formatRupiah(rupiah) ;  
   };
-  var k = document.getElementById('total').value;
-    $('#cekppn').click(function() {
-        var cb1 = $('#cekppn').is(':checked');
-            $('#ppn').removeAttr('disabled');
-            var l = k*1/100;
-            var m = k+l*1;
-            $('#ppn').val(l);
-            $('#total').val(m);
-    });
+
+  function stoptotal(){
+    clearInterval(intervaltotal);
+  };
+
+  
+
+
 </script>
