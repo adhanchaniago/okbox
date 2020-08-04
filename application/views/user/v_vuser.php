@@ -27,11 +27,17 @@
             <!-- form start -->
             <form class="form-horizontal" method="POST" action="<?php echo site_url('C_User')?>">
               <div class="box-body">
-                <?php foreach ($user as $user) { ?>
+                <?php foreach ($user as $user) { ?> 
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">NIK</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK"  maxlength="16" minlength="16" value="<?php echo $user->nik ?>">
+                  </div>
+                </div>
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Nama</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $user->nama ?>" readonly>
+                    <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $user->nama_user ?>" readonly>
                   </div>
                 </div>
                 <div class="form-group">
@@ -46,31 +52,7 @@
                   <div class="col-sm-9">
                     <input type="text" class="form-control" id="password" name="password" value="<?php echo $user->password ?>" readonly>
                   </div>
-                </div><!-- 
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">NIK</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK"  maxlength="16" minlength="16" value="<?php echo $user->nik ?>" readonly>
-                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
-                  <div class="col-sm-9">
-                    <textarea class="form-control" rows="3" id="alamat" name="alamat" readonly><?php echo $user->alamat ?></textarea>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Provinsi</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="prov" name="prov" value="<?php echo $user->name_prov ?>" readonly>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Kota/Kabupaten</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="kota" name="kota" value="<?php echo $user->name_kota ?>" readonly>
-                  </div>
-                </div> -->
               </div>
               <?php } ?>
               <!-- /.box-body -->

@@ -25,7 +25,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" method="POST" action="<?php echo site_url('C_harga')?>">
+            <form class="form-horizontal" method="POST" action="<?php echo site_url('C_Harga')?>">
               <div class="box-body">
                 <?php foreach ($harga as $harga) {?>
                 <div class="form-group">

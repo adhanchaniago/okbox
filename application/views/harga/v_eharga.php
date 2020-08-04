@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Tujuan</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="tujuan" name="tujuan" value="<?php echo $harga->tujuan; ?>">
+                    <input type="text" class="form-control" id="tujuanmaster" name="tujuanmaster" value="<?php echo $harga->tujuan; ?>">
                     <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $harga->id_harga; ?>">
                   </div>
                 </div>
@@ -64,7 +64,7 @@
               <!-- /.box-body -->
               <div class="box-footer">
                   <div class="col-sm-10">
-                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <a href="<?php echo site_url('C_Harga'); ?>" class="btn btn-default">Kembali</a>
                     <button type="submit" class="btn btn-info">Tambah Data</button>
                   </div>
               </div>

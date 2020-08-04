@@ -58,8 +58,8 @@
               <?php } ?>
               <!-- /.box-body -->
               <div class="box-footer">
-                  <div class="col-sm-10">
-                    <button type="reset" class="btn btn-default">Cancel</button>
+                  <div class="col-sm-10"> 
+                    <a href="<?php echo site_url('C_User'); ?>" class="btn btn-default">Kembali</a>
                     <button type="submit" class="btn btn-info">Simpan Data</button>
                   </div>
               </div>

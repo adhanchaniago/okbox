@@ -29,7 +29,7 @@ class M_harga extends CI_Model {
         $harga_str = preg_replace("/[^0-9]/", "", $harga);
         $harga = array(
             'tglaktif' => date('Y-m-d'),
-            'tujuan' => $this->input->post('tujuan'),
+            'tujuan' => $this->input->post('tujuanmaster'),
             'code' => $this->input->post('code'),
             'harga' => $harga_str,
             'kg' => $this->input->post('kg'),
@@ -54,7 +54,7 @@ class M_harga extends CI_Model {
         $harga_str = preg_replace("/[^0-9]/", "", $harga);
         $harga = array(
             'tglaktif' => date('Y-m-d'),
-            'tujuan' => $this->input->post('tujuan'),
+            'tujuan' => $this->input->post('tujuanmaster'),
             'code' => $this->input->post('code'),
             'harga' => $harga_str,
             'kg' => $this->input->post('kg'),

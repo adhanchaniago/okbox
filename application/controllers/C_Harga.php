@@ -27,7 +27,7 @@ class C_Harga extends CI_Controller{
         $id = $this->session->userdata('id_user');
         $data['menu'] = $this->M_Setting->getmenu1($id);
         $this->load->view('template/sidebar.php', $data);
-        $this->load->view('harga/v_addharga', $data); 
+        $this->load->view('harga/v_addharga'); 
         $this->load->view('template/footer');
     }
 

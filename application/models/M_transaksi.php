@@ -44,8 +44,7 @@ class M_transaksi extends CI_Model {
             'ppn' => preg_replace("/[^0-9]/", "", $this->input->post('ppn')),
             'total' => preg_replace("/[^0-9]/", "", $this->input->post('total')),
             'asal' => $this->input->post('asal'),
-            'id_user' => $id,
-            // 'status' => 'aktif',
+            'id_user' => $id
         );
         
         $this->db->insert('tb_transaksi', $transaksi);
@@ -61,28 +60,6 @@ class M_transaksi extends CI_Model {
         $query = $this->db->get_where('tb_transaksi', $where);
     	return $query->result();
     }
-
-    function edit(){
-        $transaksi = $this->input->post('transaksi');
-        $transaksi_str = preg_replace("/[^0-9]/", "", $transaksi);
-        $transaksi = array(
-            'tglaktif' => date('Y-m-d'),
-            'tujuan' => $this->input->post('tujuan'),
-            'code' => $this->input->post('code'),
-            'transaksi' => $transaksi_str,
-            'kg' => $this->input->post('kg'),
-            'tl' => $this->input->post('tl'),
-            'status' => 'aktif',
-        );
-
-        $where = array(
-            'id_transaksi' =>  $this->input->post('id'),
-        );
-        
-        $this->db->where($where);
-        $this->db->update('tb_transaksi',$transaksi);
-    }
-
     
     function saverecords($tujuan,$code,$transaksi,$kg,$tl)
     {
@@ -105,6 +82,44 @@ class M_transaksi extends CI_Model {
         $this->db->insert_batch('tb_transaksi', $data);
         return $this->db->insert_id();
      }
+
+     function search($tgl){
+        if(isset($tgl) && !empty($tgl)){
+            $tgl=explode('-', $tgl);
+            $tgl_mulai=explode('.', $tgl[0]);
+            $tgl_sampai=explode('.', $tgl[1]);
+        } 
+
+        $this->db->select('tb_harga.tujuan as tujuankirim, tb_jenismuatan.*, tb_transaksi.*');
+        $this->db->join('tb_jenismuatan', 'tb_jenismuatan.id_jenismuatan = tb_transaksi.id_jenismuatan');
+        $this->db->join('tb_harga', 'tb_harga.id_harga = tb_transaksi.tujuan');
+
+        if(!empty($tgl[0]) && !empty($tgl[1])){
+
+        $this->db->where("tgl_transaksi BETWEEN '".($tgl_mulai[2]."-".$tgl_mulai[1]."-".$tgl_mulai[0])."' and '".($tgl_sampai[2]."-".$tgl_sampai[1]."-".$tgl_sampai[0])."'");
+        }
+
+        return $this->db->get('tb_transaksi')->result();
+      }
+
+      function excel($tgl){
+        if(isset($tgl) && !empty($tgl)){
+            $tgl=explode('-', $tgl);
+            $tgl_mulai=explode('.', $tgl[0]);
+            $tgl_sampai=explode('.', $tgl[1]);
+        } 
+
+        $this->db->select('tb_harga.tujuan as tujuankirim, tb_jenismuatan.*, tb_transaksi.*');
+        $this->db->join('tb_jenismuatan', 'tb_jenismuatan.id_jenismuatan = tb_transaksi.id_jenismuatan');
+        $this->db->join('tb_harga', 'tb_harga.id_harga = tb_transaksi.tujuan');
+
+        if(!empty($tgl[0]) && !empty($tgl[1])){
+
+        $this->db->where("tgl_transaksi BETWEEN '".($tgl_mulai[2]."-".$tgl_mulai[1]."-".$tgl_mulai[0])."' and '".($tgl_sampai[2]."-".$tgl_sampai[1]."-".$tgl_sampai[0])."'");
+        }
+
+        return $this->db->get('tb_transaksi')->result();
+      }
 
     
 }

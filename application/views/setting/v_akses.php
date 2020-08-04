@@ -60,7 +60,6 @@
                   <?php } ?>
                 </tbody>
               </table>
-              <a href="<?php echo site_url('C_User/add'); ?>"><button type="button" class="btn btn-warning" >Tambah User</button></a>
             </div>
             <!-- /.box-body -->
           </div>

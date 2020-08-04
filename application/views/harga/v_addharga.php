@@ -30,7 +30,7 @@
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Tujuan</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="tujuan" name="tujuan" placeholder="Tujuan">
+                    <input type="text" class="form-control" id="tujuanmaster" name="tujuanmaster" placeholder="Tujuan">
                   </div>
                 </div>
                 <div class="form-group">
@@ -62,7 +62,7 @@
               <!-- /.box-body -->
               <div class="box-footer">
                   <div class="col-sm-10">
-                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <a href="<?php echo site_url('C_Harga'); ?>" class="btn btn-default">Kembali</a>
                     <button type="submit" class="btn btn-info">Tambah Data</button>
                   </div>
               </div>

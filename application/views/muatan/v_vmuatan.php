@@ -27,50 +27,15 @@
             <!-- form start -->
             <form class="form-horizontal" method="POST" action="<?php echo site_url('C_Muatan')?>">
               <div class="box-body">
-                <?php foreach ($Muatan as $Muatan) { ?>
+                <?php foreach ($muatan as $Muatan) { ?>
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Nama</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">Jenis muatan</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $Muatan->nama ?>" readonly>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Muatanname</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="Muatanname" name="Muatanname" placeholder="Muatanname" value="<?php echo $Muatan->Muatanname ?>" readonly>
+                    <input type="text" class="form-control" id="jenismuatan" name="jenismuatan" placeholder="Jenis muatan" value="<?php echo $Muatan->jenismuatan ?>" readonly>
+                    <input type="hidden" class="form-control" id="id" name="id" placeholder="Jenis muatan" value="<?php echo $Muatan->id_jenismuatan ?>">
                   <span id="pesan"></span>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="password" name="password" value="<?php echo $Muatan->password ?>" readonly>
-                  </div>
-                </div><!-- 
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">NIK</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK"  maxlength="16" minlength="16" value="<?php echo $Muatan->nik ?>" readonly>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
-                  <div class="col-sm-9">
-                    <textarea class="form-control" rows="3" id="alamat" name="alamat" readonly><?php echo $Muatan->alamat ?></textarea>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Provinsi</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="prov" name="prov" value="<?php echo $Muatan->name_prov ?>" readonly>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Kota/Kabupaten</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="kota" name="kota" value="<?php echo $Muatan->name_kota ?>" readonly>
-                  </div>
-                </div> -->
               </div>
               <?php } ?>
               <!-- /.box-body -->
