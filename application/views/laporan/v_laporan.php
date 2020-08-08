@@ -80,7 +80,6 @@
                   <th>Tujuan</th>
                   <th>jenis barang</th>
                   <th>Total</th>
-                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -96,12 +95,6 @@
                   <td><?php echo $transaksi->tujuan; ?></td>
                   <td><?php echo $transaksi->jenisbarang; ?></td>
                   <td><?php echo 'Rp. '.number_format($transaksi->total); ?></td>
-                  <td>
-                    <div class="btn-group">
-                      <a href="<?php echo site_url('C_Transaksi/view/'.$transaksi->id_transaksi); ?>"><button type="button" class="btn btn-success">Lihat</button></a>
-                      <a href="<?php echo site_url('C_Transaksi/view/'.$transaksi->id_transaksi); ?>"><button type="button" class="btn btn-info">Cetak</button></a>
-                    </div>
-                  </td>
                 </tr>
                   <?php } ?>
                 </tbody>

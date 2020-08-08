@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2020 at 05:05 PM
+-- Generation Time: Aug 08, 2020 at 07:11 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.31
 
@@ -83,8 +83,39 @@ CREATE TABLE `tb_harga` (
 --
 
 INSERT INTO `tb_harga` (`id_harga`, `tglaktif`, `tujuan`, `code`, `harga`, `kg`, `tl`, `status`) VALUES
-(32, '2020-07-22', 'denpasar', 'dps', 3873, 30, '2-3', 'aktif'),
-(34, '2020-08-04', 'bali', 'DPSa', 10000, 30, '2-3', 'aktif');
+(32, '2020-07-22', 'denpasar', 'dps', 3873, 30, '2-3', 'tidak'),
+(34, '2020-08-04', 'bali', 'DPSa', 10000, 30, '2-3', 'tidak'),
+(35, '2020-08-08', 'bali', 'ba-10', 3872, 30, '2-3', 'aktif'),
+(36, '2020-08-08', 'DENPASAR', 'DPS', 3, 30, '2-3', 'tidak'),
+(37, '2020-08-08', 'KUTA', 'KTA', 3, 30, '2-4', 'tidak'),
+(38, '2020-08-08', 'GIANYAR', 'GNY', 3, 30, '2-4', 'tidak'),
+(39, '2020-08-08', 'TABANAN', 'TBN', 3, 30, '2-4', 'tidak'),
+(40, '2020-08-08', 'BADUNG', 'BDU', 3, 30, '2-4', 'tidak'),
+(41, '2020-08-08', 'NUSA DUA', 'NSD', 3, 30, '2-4', 'tidak'),
+(42, '2020-08-08', 'UBUT', 'UBT', 3, 30, '2-4', 'tidak'),
+(43, '2020-08-08', 'KLUNGKUNG', 'KIU', 4, 30, '2-4', 'tidak'),
+(44, '2020-08-08', 'LEGIAN', 'LGN', 3, 30, '2-4', 'tidak'),
+(45, '2020-08-08', 'TANAH LOT', 'TNL', 3, 30, '2-4', 'tidak'),
+(49, '2020-08-08', 'TABANAN', 'TBN', 3872, 30, '2-4', 'tidak'),
+(50, '2020-08-08', 'BADUNG', 'BDU', 3872, 30, '2-4', 'tidak'),
+(51, '2020-08-08', 'NUSA DUA', 'NSD', 3872, 30, '2-4', 'tidak'),
+(53, '2020-08-08', 'KLUNGKUNG', 'KIU', 4840, 30, '2-4', 'tidak'),
+(56, '2020-08-08', 'DENPASAR', 'DPS', 3872, 30, '2-3', 'tidak'),
+(58, '2020-08-08', 'GIANYAR', 'GNY', 3872, 30, '2-4', 'tidak'),
+(60, '2020-08-08', 'BADUNG', 'BDU', 3872, 30, '2-4', 'tidak'),
+(61, '2020-08-08', 'NUSA DUA', 'NSD', 3872, 30, '2-4', 'tidak'),
+(62, '2020-08-08', 'UBUT', 'UBT', 3872, 30, '2-4', 'tidak'),
+(64, '2020-08-08', 'LEGIAN', 'LGN', 3872, 30, '2-4', 'tidak'),
+(65, '2020-08-08', 'TANAH LOT', 'TNL', 3872, 30, '2-4', 'tidak'),
+(66, '2020-08-08', 'DENPASAR', 'DPS', 3872, 30, '2-3', 'aktif'),
+(67, '2020-08-08', 'KUTA', 'KTA', 3872, 30, '2-4', 'aktif'),
+(68, '2020-08-08', 'GIANYAR', 'GNY', 3872, 30, '2-4', 'aktif'),
+(69, '2020-08-08', 'TABANAN', 'TBN', 3872, 30, '2-4', 'aktif'),
+(70, '2020-08-08', 'BADUNG', 'BDU', 3872, 30, '2-4', 'aktif'),
+(71, '2020-08-08', 'NUSA DUA', 'NSD', 3872, 30, '2-4', 'aktif'),
+(72, '2020-08-08', 'UBUT', 'UBT', 3872, 30, '2-4', 'aktif'),
+(73, '2020-08-08', 'KLUNGKUNG', 'KIU', 4840, 30, '2-4', 'aktif'),
+(74, '2020-08-08', 'LEGIAN', 'LGN', 3872, 30, '2-4', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -255,7 +286,7 @@ ALTER TABLE `tb_akses`
 -- AUTO_INCREMENT for table `tb_harga`
 --
 ALTER TABLE `tb_harga`
-  MODIFY `id_harga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_harga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `tb_jenismuatan`

@@ -4,8 +4,19 @@ class M_harga extends CI_Model {
 
 	function getharga(){
 		$this->db->select('*');
-        $query = $this->db->get('tb_harga');
+        $where = array(
+            'status' => 'aktif'
+        );
+        $query = $this->db->get_where('tb_harga', $where);
     	return $query->result();
+    }
+
+    function getall(){
+        $this->db->select('*');
+        $this->db->order_by('status','ASC');
+        $this->db->order_by('tglaktif','ASC');
+        $query = $this->db->get('tb_harga');
+        return $query->result();
     }
 
     function getnama($id_harga){
@@ -25,6 +36,24 @@ class M_harga extends CI_Model {
     }
 
     function tambahdata(){
+        $where = array(
+            'tujuan' => $this->input->post('tujuanmaster'),
+        );
+        $result = $this->db->get_where('tb_harga',$where)->row();
+
+        if(!empty($result)){
+             $status = array(
+            'status' => 'tidak',
+            );
+
+            $wherea = array(
+            'tujuan' => $this->input->post('tujuanmaster'),
+            );
+            
+            $this->db->where($wherea);
+            $this->db->update('tb_harga',$status);
+        }
+
         $harga = $this->input->post('harga');
         $harga_str = preg_replace("/[^0-9]/", "", $harga);
         $harga = array(
@@ -37,7 +66,8 @@ class M_harga extends CI_Model {
             'status' => 'aktif',
         );
         
-        $this->db->insert('tb_harga', $harga);
+        $this->db->insert('tb_harga', $harga);       
+
     }
 
     function getspek($idharga){
@@ -69,29 +99,6 @@ class M_harga extends CI_Model {
         $this->db->where($where);
         $this->db->update('tb_harga',$harga);
     }
-
-    
-    function saverecords($tujuan,$code,$harga,$kg,$tl)
-    {
-        $harga = array(
-            'tglaktif' => date('Y-m-d'),
-            'tujuan' => $tujuan,
-            'code' => $code,
-            'harga' => $harga,
-            'kg' => $kg,
-            'tl' => $tl,
-            'status' => 'aktif',
-        );
-        
-        $this->db->insert('tb_harga', $harga);
-    }
-
-
-     function insertimport($data)
-     {
-        $this->db->insert_batch('tb_harga', $data);
-        return $this->db->insert_id();
-     }
 
     
 }

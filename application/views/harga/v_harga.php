@@ -22,22 +22,8 @@
           <div class="box">
             <div class="box-header">
               <a href="<?php echo site_url('C_Harga/add'); ?>"><button type="button" class="btn btn-warning" >Tambah Data</button></a>
-              <a href="<?php echo site_url('C_Harga/import'); ?>"><button type="button" class="btn btn-primary" >Import Data</button></a>
-              <a href="<?php echo site_url('C_Harga/download'); ?>"><button type="button" class="btn btn-danger" >Download Format</button></a>
-            <!--   <div class="container" style="margin-top: 100px">
-                  <div class="row">
-                      <div class="col-md-8 offset-2">
-                        <form method="POST" id="import_form" action="<?php echo site_url('C_Harga/upload')?>" enctype="multipart/form-data">
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">UNGGAH FILE EXCEL</label>
-                              <input type="file" name="file" class="form-control">
-                            </div>
-
-                            <button type="submit" class="btn btn-success">UPLOAD</button>
-                          </form>
-                      </div>
-                  </div>
-              </div> -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Import Data</button>
+              <a href="<?php echo base_url("excel/format.xlsx"); ?>"><button type="button" class="btn btn-danger" >Download Format</button></a>
             </div>
             <!-- /.box-header -->
 
@@ -62,7 +48,7 @@
                   foreach ($harga as $harga) { ?>
                 <tr>
                   <td><?php echo $no++; ?></td>
-                  <td><?php echo date('d-m-Y', strtotime($harga->tglaktif)); ?></td>
+                  <td><?php if ($harga->status == 'aktif' ){ echo date('d-m-Y', strtotime($harga->tglaktif)); } else { echo '-';} ?></td>
                   <td><?php echo $harga->tujuan; ?></td>
                   <td><?php echo $harga->code; ?></td>
                   <td><?php echo 'Rp. '.number_format($harga->harga); ?></td>
@@ -91,3 +77,44 @@
     </section>
     <!-- /.content -->
   </div>
+
+   <style>
+    .example-modal .modal {
+      position: relative;
+      top: auto;
+      bottom: auto;
+      right: auto;
+      left: auto;
+      display: block;
+      z-index: 1;
+    }
+
+    .example-modal .modal {
+      background: transparent !important;
+    }
+  </style>
+
+
+        <div class="modal fade" id="modal-default">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form method="post" action="<?php echo base_url("index.php/C_Harga/upload"); ?>" enctype="multipart/form-data">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Upload Daftar Harga</h4>
+              </div>
+              <div class="modal-body">
+                  <input type="file" name="userfile">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+              </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->

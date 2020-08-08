@@ -189,7 +189,7 @@ n <div class="content-wrapper">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Harga / Kg</label>
                   <input type="text" class="form-control" id="hargakg" name="hargakg" readonly>
-                  <input type="text" class="form-control" id="min" name="min" readonly>
+                  <input type="hidden" class="form-control" id="min" name="min" readonly>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Biaya Kirim</label>

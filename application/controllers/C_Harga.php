@@ -7,7 +7,7 @@ class C_Harga extends CI_Controller{
         $this->load->library('session');
         $this->load->model('M_harga');
         $this->load->model('M_Setting');
-        $this->load->library('excel');
+        // $this->load->library('excel');
     }
 
     function index()
@@ -16,9 +16,14 @@ class C_Harga extends CI_Controller{
         $id = $this->session->userdata('id_user');
         $data['menu'] = $this->M_Setting->getmenu1($id);
         $this->load->view('template/sidebar.php', $data);
-        $data['harga'] = $this->M_harga->getharga();
+        $data['harga'] = $this->M_harga->getall();
         $this->load->view('harga/v_harga',$data); 
         $this->load->view('template/footer');
+    }
+
+    function form()
+    {
+        $this->load->view('harga/form'); 
     }
 
     function add()
@@ -38,13 +43,13 @@ class C_Harga extends CI_Controller{
         redirect('C_Harga');
     }
 
-    function view($id)
+    function view($ida)
     {
         $this->load->view('template/header');
         $id = $this->session->userdata('id_user');
         $data['menu'] = $this->M_Setting->getmenu1($id);
         $this->load->view('template/sidebar.php', $data);
-        $data['harga'] = $this->M_harga->getspek($id);
+        $data['harga'] = $this->M_harga->getspek($ida);
         $this->load->view('harga/v_vharga',$data); 
         $this->load->view('template/footer');
     }
@@ -74,58 +79,19 @@ class C_Harga extends CI_Controller{
         redirect('C_Harga');
     }
 
-     function download()
-    {   
-        $data = array('title' => 'Format Data Harga' );
-        $this->load->view('harga/download', $data);
-    }
-
-   public function saveimport()
-    {
-        if(isset($_FILES["file"]["name"]))
-            {
-                $path = $_FILES["file"]["tmp_name"];
-                $object = PHPExcel_IOFactory::load($path);
-                foreach($object->getWorksheetIterator() as $worksheet)
-                {
-                    $highestRow = $worksheet->getHighestRow();
-                    $highestColumn = $worksheet->getHighestColumn();
-                    for($row=2; $row<=$highestRow; $row++)
-                    {   
-                        $tujuan = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
-                        $code= $worksheet->getCellByColumnAndRow(1, $row)->getValue();
-                        $harga = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-                        $kg= $worksheet->getCellByColumnAndRow(3, $row)->getValue();
-                        $tl= $worksheet->getCellByColumnAndRow(4, $row)->getValue();
-                        $data[] = array(
-                            'tujuan'        =>    $tujuan,
-                            'code'            =>    $code,
-                            'harga'        =>    $harga,
-                            'kg'        =>    $kg,
-                            'tl'            =>    $tl
-                        );
-                    }
-                }
-                $this->M_harga->insertimport($data);
-                
-            }                
-    
-    }
-
-
     public function upload()
     {
         // Load plugin PHPExcel nya
-        include APPPATH.'libraries/PHPExcel/PHPExcel.php';
-        $this->load->library('upload');
-        // $config['upload_path'] = realpath('excel');
-        // $config['allowed_types'] = 'xlxs|xls';
-        // $config['max_size'] = '10000';
-        // $config['encrypt_name'] = true;
+        include APPPATH.'third_party/PHPExcel/PHPExcel.php';
 
-        // $this->upload->initialize($config);
+        $config['upload_path'] = realpath('excel');
+        $config['allowed_types'] = 'xlsx|xls|csv';
+        $config['max_size'] = '10000';
+        $config['encrypt_name'] = true;
 
-        if (!$this->upload->do_upload('file')) {
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload()) {
 
             //upload gagal
             $this->session->set_flashdata('notif', '<div class="alert alert-danger"><b>PROSES IMPORT GAGAL!</b> '.$this->upload->display_errors().'</div>');
@@ -145,8 +111,19 @@ class C_Harga extends CI_Controller{
             $numrow = 1;
             foreach($sheet as $row){
                             if($numrow > 1){
+                                $status = array(
+                                    'status' => 'tidak',
+                                );
+
+                                $wherea = array(
+                                    'tujuan' => $row['B']
+                                );
+                                    
+                                $this->db->where($wherea);
+                                $this->db->update('tb_harga',$status);
+                                
                                 array_push($data, array(
-                                    'nama_dosen' => date('Y m d'),
+                                    'tglaktif' => date('Y-m-d'),
                                     'tujuan'      => $row['B'],
                                     'code'      => $row['C'],
                                     'harga'      => $row['D'],
@@ -163,10 +140,8 @@ class C_Harga extends CI_Controller{
             //upload success
             $this->session->set_flashdata('notif', '<div class="alert alert-success"><b>PROSES IMPORT BERHASIL!</b> Data berhasil diimport!</div>');
             //redirect halaman
-            redirect('C_Harga');
+            redirect('C_Harga/');
 
         }
     }
-
-
 }
