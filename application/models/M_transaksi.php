@@ -51,9 +51,8 @@ class M_transaksi extends CI_Model {
     }
 
     function getspek($idtransaksi){
-		$this->db->select('tb_harga.tujuan as tujuankirim, tb_jenismuatan.*, tb_transaksi.*');
+		$this->db->select('*');
         $this->db->join('tb_jenismuatan', 'tb_jenismuatan.id_jenismuatan = tb_transaksi.id_jenismuatan');
-        $this->db->join('tb_harga', 'tb_harga.id_harga = tb_transaksi.tujuan');
         $where = array(
             'id_transaksi' => $idtransaksi
         );

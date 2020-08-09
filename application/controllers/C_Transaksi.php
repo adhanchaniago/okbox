@@ -9,6 +9,7 @@ class C_Transaksi extends CI_Controller{
         $this->load->model('M_Setting');
         $this->load->model('M_harga');
         $this->load->model('M_muatan');
+        $this->load->library('Pdf');   
     }
 
     function index()
@@ -113,6 +114,39 @@ class C_Transaksi extends CI_Controller{
             echo "2";
         }
          
+    }
+
+    function cetak($ida){
+        $pdf = new FPDF('L','mm',array('148', '210'));
+        // membuat halaman baru
+        $pdf->AddPage();
+        // setting jenis font yang akan digunakan
+        $pdf->SetFont('Arial','',10,'C');
+        // mencetak string       
+
+        $pdf->Image('assets/images/kopa.jpg',10,5,190,15);
+        $pdf->Cell(0,15,'',0,1);
+        $pdf->Cell(20,7,'No Resi',1,0,'C');
+        $pdf->Cell(30,7,'Asal',1,0,'C');
+        $pdf->Cell(30,7,'Tujuan',1,0,'C');
+        $pdf->Cell(30,7,'Jumlah Barang',1,0,'C');
+        $pdf->Cell(25,7,'Berat',1,0,'C');
+        $pdf->Cell(25,7,'Berat Volume',1,0,'C');
+        $pdf->Cell(30,7,'Harga/Kg',1,1,'C');
+        $pdf->SetFont('Arial','',11,'C');
+
+        $data = $this->M_transaksi->getspek($ida);
+        foreach ($data as $key ) {
+            $pdf->Cell(20,7,$key->noresi,1,0,'C');
+            $pdf->Cell(30,7,$key->asal,1,0,'C');
+            $pdf->Cell(30,7,'Tujuan',1,0,'C');
+            $pdf->Cell(30,7,'Jumlah Barang',1,0,'C');
+            $pdf->Cell(25,7,'Berat',1,0,'C');
+            $pdf->Cell(25,7,'Berat Volume',1,0,'C');
+            $pdf->Cell(30,7,'Harga/Kg',1,1,'C');
+        }
+        // $pdf->AutoPrint(true);
+        $pdf->Output();
     }
 
 

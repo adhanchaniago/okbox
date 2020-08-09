@@ -56,7 +56,7 @@
                   <td>
                     <div class="btn-group">
                       <a href="<?php echo site_url('C_Transaksi/view/'.$transaksi->id_transaksi); ?>"><button type="button" class="btn btn-success">Lihat</button></a>
-                      <a href="<?php echo site_url('C_Transaksi/view/'.$transaksi->id_transaksi); ?>"><button type="button" class="btn btn-info">Cetak</button></a>
+                      <a href="<?php echo site_url('C_Transaksi/cetak/'.$transaksi->id_transaksi); ?>"><button type="button" class="btn btn-info">Cetak</button></a>
                     </div>
                   </td>
                 </tr>
