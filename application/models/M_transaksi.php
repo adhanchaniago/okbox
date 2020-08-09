@@ -33,7 +33,7 @@ class M_transaksi extends CI_Model {
             'jumlahbarang' => $this->input->post('jumlahbarang'),
             'berat' => $this->input->post('berat'),
             'beratvolume' => $this->input->post('volume'),
-            'tujuan' => $this->input->post('tujuan'),
+            'tujuan' => $this->input->post('tujuankirim'),
             'harga' => preg_replace("/[^0-9]/", "", $this->input->post('hargakg')),
             'subharga' => preg_replace("/[^0-9]/", "",$this->input->post('biayakirim')),
             'jenisbarang' => $this->input->post('jenisbarang'),
@@ -90,9 +90,8 @@ class M_transaksi extends CI_Model {
             $tgl_sampai=explode('.', $tgl[1]);
         } 
 
-        $this->db->select('tb_harga.tujuan as tujuankirim, tb_jenismuatan.*, tb_transaksi.*');
+        $this->db->select('*');
         $this->db->join('tb_jenismuatan', 'tb_jenismuatan.id_jenismuatan = tb_transaksi.id_jenismuatan');
-        $this->db->join('tb_harga', 'tb_harga.id_harga = tb_transaksi.tujuan');
 
         if(!empty($tgl[0]) && !empty($tgl[1])){
 
@@ -109,9 +108,8 @@ class M_transaksi extends CI_Model {
             $tgl_sampai=explode('.', $tgl[1]);
         } 
 
-        $this->db->select('tb_harga.tujuan as tujuankirim, tb_jenismuatan.*, tb_transaksi.*');
+        $this->db->select('*');
         $this->db->join('tb_jenismuatan', 'tb_jenismuatan.id_jenismuatan = tb_transaksi.id_jenismuatan');
-        $this->db->join('tb_harga', 'tb_harga.id_harga = tb_transaksi.tujuan');
 
         if(!empty($tgl[0]) && !empty($tgl[1])){
 

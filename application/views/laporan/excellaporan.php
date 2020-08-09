@@ -49,12 +49,12 @@ header("Expires: 0");
  <td><?php echo $i ?></td>
  <td><?php echo date('d-m-Y', strtotime($excel->tgl_transaksi)) ?></td>
  <td><?php echo $excel->noresi ?></td>
- <td><?php echo $excel->nikpengirim; ?></td>
+ <td><?php echo ' '.$excel->nikpengirim; ?></td>
  <td><?php echo $excel->namapengirim; ?></td>
  <td><?php echo $excel->alamatpengirim; ?></td>
  <td><?php echo $excel->tlppengirim; ?></td>
  <td><?php echo $excel->emailpengirim; ?></td>
- <td><?php echo $excel->nikpenerima; ?></td>
+ <td><?php echo ' '.$excel->nikpenerima; ?></td>
  <td><?php echo $excel->namapenerima; ?></td>
  <td><?php echo $excel->alamatpenerima; ?></td>
  <td><?php echo $excel->tlppenerima; ?></td>

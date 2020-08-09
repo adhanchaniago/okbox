@@ -38,7 +38,6 @@
                   <th>Harga</th>
                   <th>Min. Kg</th>
                   <th>TL</th>
-                  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -48,13 +47,12 @@
                   foreach ($harga as $harga) { ?>
                 <tr>
                   <td><?php echo $no++; ?></td>
-                  <td><?php if ($harga->status == 'aktif' ){ echo date('d-m-Y', strtotime($harga->tglaktif)); } else { echo '-';} ?></td>
+                  <td><?php echo date('d-m-Y', strtotime($harga->tglaktif)); ?></td>
                   <td><?php echo $harga->tujuan; ?></td>
                   <td><?php echo $harga->code; ?></td>
                   <td><?php echo 'Rp. '.number_format($harga->harga); ?></td>
                   <td><?php echo $harga->kg; ?></td>
                   <td><?php echo $harga->tl; ?></td>
-                  <td><?php echo $harga->status; ?></td>
                   <td>
                     <div class="btn-group">
                       <a href="<?php echo site_url('C_Harga/view/'.$harga->id_harga); ?>"><button type="button" class="btn btn-success">Lihat</button></a>

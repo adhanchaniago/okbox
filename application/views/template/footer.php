@@ -312,7 +312,8 @@ function toggle(source) {
           // set isi dari combobox kota
           // lalu munculkan kembali combobox kotanya
           // $("#nama_suplier").html("aaaa");
-
+          
+          $('#tujuankirim').val(response.tujuankirim);
           $('#min').val(response.min);
           $('#hargakg').val(response.harga);
         },

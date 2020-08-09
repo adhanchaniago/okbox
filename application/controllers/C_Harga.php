@@ -111,16 +111,8 @@ class C_Harga extends CI_Controller{
             $numrow = 1;
             foreach($sheet as $row){
                             if($numrow > 1){
-                                $status = array(
-                                    'status' => 'tidak',
-                                );
-
-                                $wherea = array(
-                                    'tujuan' => $row['B']
-                                );
-                                    
-                                $this->db->where($wherea);
-                                $this->db->update('tb_harga',$status);
+                                $where = array('tujuan' => $row['B']);
+                                $this->M_Setting->delete($where,'tb_harga');
                                 
                                 array_push($data, array(
                                     'tglaktif' => date('Y-m-d'),

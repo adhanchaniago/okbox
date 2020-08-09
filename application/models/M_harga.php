@@ -42,16 +42,10 @@ class M_harga extends CI_Model {
         $result = $this->db->get_where('tb_harga',$where)->row();
 
         if(!empty($result)){
-             $status = array(
-            'status' => 'tidak',
-            );
 
-            $wherea = array(
-            'tujuan' => $this->input->post('tujuanmaster'),
-            );
-            
-            $this->db->where($wherea);
-            $this->db->update('tb_harga',$status);
+            $where = array('tujuan' => $this->input->post('tujuanmaster'));
+            $this->db->where($where);
+            $this->db->delete('tb_harga');
         }
 
         $harga = $this->input->post('harga');

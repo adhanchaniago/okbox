@@ -88,9 +88,10 @@ class C_Transaksi extends CI_Controller{
             foreach($hasil_kode as $data){
                 $harga = 'Rp. '.number_format($data->harga);
                 $min = $data->kg;
+                $tujuankirim = $data->tujuan;
             }
         
-            $callback = array('harga'=>$harga, 'min'=>$min); // Masukan variabel lists tadi ke dalam array $callback dengan index array : list_kota
+            $callback = array('harga'=>$harga, 'min'=>$min,  'tujuankirim'=>$tujuankirim); // Masukan variabel lists tadi ke dalam array $callback dengan index array : list_kota
             echo json_encode($callback); // konversi varibael $callback menjadi JSON
     }
 
