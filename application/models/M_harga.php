@@ -13,8 +13,7 @@ class M_harga extends CI_Model {
 
     function getall(){
         $this->db->select('*');
-        $this->db->order_by('status','ASC');
-        $this->db->order_by('tglaktif','ASC');
+        $this->db->order_by('tglaktif','DESC');
         $query = $this->db->get('tb_harga');
         return $query->result();
     }

@@ -118,7 +118,7 @@ class C_Harga extends CI_Controller{
                                     'tglaktif' => date('Y-m-d'),
                                     'tujuan'      => $row['B'],
                                     'code'      => $row['C'],
-                                    'harga'      => $row['D'],
+                                    'harga'      => preg_replace("/[^0-9]/", "", $row['D']),
                                     'kg'      => $row['E'],
                                     'tl'      => $row['F'],
                                 ));
