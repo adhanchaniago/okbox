@@ -116,12 +116,12 @@ class C_Transaksi extends CI_Controller{
          
     }
 
-    function cetak($ida)
+    function cetak1($ida)
     {
         $this->load->view('transaksi/cetak'); 
     }
 
-    function cetak1($ida){
+    function cetak($ida){
         $pdf = new FPDF('L','mm',array('148', '210'));
         // membuat halaman baru
         $pdf->AddPage();
@@ -129,7 +129,9 @@ class C_Transaksi extends CI_Controller{
         $pdf->SetFont('Arial','',7,'C');
         // mencetak string       
 
+        
         $pdf->Image('assets/images/kopa.jpg',10,5,190,15);
+        $pdf->ln();  
         $pdf->Cell(0,13,'',0,1);
         $pdf->Cell(20,5,'No Resi',1,0,'C');
         $pdf->Cell(30,5,'Asal',1,0,'C');
@@ -157,11 +159,15 @@ class C_Transaksi extends CI_Controller{
             $pdf->Cell(90,5,$key->jenisbarang,1,1,'C');
             $pdf->cell(50,5,'Alamat Pengirim : ','LR');
             // $pdf->cell(50,10,$key->alamatpenerima,'LR');
-            $pdf->MultiCell(50, 3, $key->alamatpenerima, 'LR');
+            $pdf->MultiCell(50, 3, $key->alamatpenerima, 'LR');  
+            // $pdf->ln();
+            $pdf->SetXY(10,47);
             $pdf->MultiCell(50,3,$key->alamatpengirim,'LR');
-            $pdf->ln();
+
+            $pdf->Cell(50,7,'','LR');
+            $pdf->SetXY(110,43);
             $pdf->Cell(90,5,'INFORMASI JENIS KIRIMAN & LAYANAN',1,1,'C');
-            $pdf->cell(50,5,'','LR');
+            $pdf->SetXY(110,48);
             if ($key->jeniskiriman == 'dokumen'){
                 $pdf->Cell(7,5,'v',1,0,'C');
             } else {
@@ -175,13 +181,16 @@ class C_Transaksi extends CI_Controller{
             }
             $pdf->Cell(15,5,'Paket',1,0,'C');
             $pdf->Cell(41,5,$key->jenismuatan,1,1,'C');
+            $pdf->SetXY(10,57);
             $pdf->Cell(25,5,'Tlp. Pengirim',1,0,'C');
             $pdf->Cell(25,5,'Email Pengirim',1,0,'C');
             $pdf->Cell(25,5,'Tlp. Penerima',1,0,'C');
             $pdf->Cell(25,5,'Email Penerima',1,0,'C');
-            $pdf->Cell(90,20,'',1,0,'C');
-            $pdf->Image('assets/images/ket.jpg',111,53,75,17);
-            $pdf->Cell(91,5,'',0,1,'C');
+            $pdf->SetXY(110,53);
+            $pdf->Cell(90,24,'',1,0,'C');
+            $pdf->Image('assets/images/ket.jpg',111,54,75,20);
+            $pdf->Cell(91,0,'',0,1,'C');
+            $pdf->SetXY(10,62);
             $pdf->Cell(25,5,$key->tlppengirim,1,0,'C');
             $pdf->Cell(25,5,$key->emailpengirim,1,0,'C');
             $pdf->Cell(25,5,$key->tlppenerima,1,0,'C');

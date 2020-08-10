@@ -50,14 +50,14 @@ class M_transaksi extends CI_Model {
         $this->db->insert('tb_transaksi', $transaksi);
     }
 
-    function getspek($idtransaksi){
-		$this->db->select('*');
+     function getspek($idtransaksi){
+        $this->db->select('*');
         $this->db->join('tb_jenismuatan', 'tb_jenismuatan.id_jenismuatan = tb_transaksi.id_jenismuatan');
         $where = array(
             'id_transaksi' => $idtransaksi
         );
         $query = $this->db->get_where('tb_transaksi', $where);
-    	return $query->result();
+        return $query->result();
     }
     
     function saverecords($tujuan,$code,$transaksi,$kg,$tl)

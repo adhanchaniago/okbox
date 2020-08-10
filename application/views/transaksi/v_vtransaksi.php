@@ -1,4 +1,4 @@
-n <div class="content-wrapper">
+ <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -92,7 +92,7 @@ n <div class="content-wrapper">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Tujuan</label>
-                  <input type="text" class="form-control" id="noresi" name="noresi" value="<?php echo $key->tujuankirim ?>" readonly>
+                  <input type="text" class="form-control" id="noresi" name="noresi" value="<?php echo $key->tujuan ?>" readonly>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Jenis Kiriman</label>
