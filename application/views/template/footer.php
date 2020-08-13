@@ -379,15 +379,11 @@ function Calculate_total(){
   function Calculatetot(){
 
     var asuransi = document.getElementById('asuransi');
-    if(asuransi){
-      asuransi.addEventListener('keyup', function(e){
-      //   // tambahkan 'Rp.' pada saat form di ketik
-      //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-        asuransi.value = formatRupiah(this.value, 'Rp. ');
-      });
-    }
+    asuransi.addEventListener('keyup', function(e){
+      asuransi.value = formatRupiah(this.value, 'Rp. ');
+    });
 
-    var biayapacking = document.getElementById('biayapacking');
+var biayapacking = document.getElementById('biayapacking');
     if(biayapacking){
       biayapacking.addEventListener('keyup', function(e){
       //   // tambahkan 'Rp.' pada saat form di ketik
@@ -395,6 +391,23 @@ function Calculate_total(){
         biayapacking.value = formatRupiah(this.value, 'Rp. ');
       });
     }
+
+    // var asuransi = document.getElementById('asuransi');
+    // if(asuransi){
+    //   asuransi.addEventListener('keyup', function(e){
+    //   //   // tambahkan 'Rp.' pada saat form di ketik
+    //   //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    //     asuransi.value = formatRupiah(this.value, 'Rp. ');
+    //   });
+
+    // var biayapacking = document.getElementById('biayapacking');
+    // if(biayapacking){
+    //   biayapacking.addEventListener('keyup', function(e){
+    //   //   // tambahkan 'Rp.' pada saat form di ketik
+    //   //   // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    //     biayapacking.value = formatRupiah(this.value, 'Rp. ');
+    //   });
+    // }
     /* Fungsi formatRupiah */
     function formatRupiah(angka, prefix){
       var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -416,6 +429,7 @@ function Calculate_total(){
       var g = (document.getElementById('biayakirim').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('biayakirim').value.replace(/[^0-9]/g,'')));
       var h = (document.getElementById('biayapacking').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('biayapacking').value.replace(/[^0-9]/g,'')));
       var i = (document.getElementById('asuransi').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('asuransi').value.replace(/[^0-9]/g,'')));
+      var z = (document.getElementById('biayapacking').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('biayapacking').value.replace(/[^0-9]/g,'')));
       // var j = (document.getElementById('asuransi').value.replace(/[^0-9]/g,'')==''?0:parseInt(document.getElementById('asuransi').value.replace(/[^0-9]/g,'')));
       if ($('#cekppn').is(':checked')){
           var l = g/100;

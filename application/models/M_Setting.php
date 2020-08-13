@@ -9,21 +9,29 @@ class M_Setting extends CI_Model {
         return $query->result();
     }
 
-	// function getprovinsi(){
-	// 	$this->db->select('*');
-	// 	$this->db->from('tb_provinsi');
-	// 	$query = $this->db->get();
- //    	return $query->result();
- //    }
+	function datatransaksi(){
+        $query = $this->db->get('tb_transaksi');
+        return $query->num_rows();
+    }
 
- //    function getkota($id){
- //        $this->db->select('*');
- //        $where = array(
- //            'id_provinsi' => $id
- //        );
- //        $query = $this->db->get_where('tb_kota', $where);
- //        return $query->result();
- //    }
+    function datatujuan(){
+        $query = $this->db->get('tb_harga');
+        return $query->num_rows();
+    }
+
+     function datastaf(){
+        $query = $this->db->get('tb_user');
+        return $query->num_rows();
+    }
+
+    function transaksiperbulan(){
+        $vbulan = date("m"); 
+         $this->db->select('sum(total) as totalbulanini');
+        $this->db->where('month(tgl_transaksi)',$vbulan);
+        $query = $this->db->get('tb_transaksi');
+        return $query->result();
+    }
+
 
     function getakses($ida){
         $this->db->select('*');

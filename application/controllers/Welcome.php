@@ -32,7 +32,11 @@ class Welcome extends CI_Controller {
 		$id = $this->session->userdata('id_user');
         $data['menu'] = $this->M_Setting->getmenu1($id);
 		$this->load->view('template/sidebar.php', $data);
-		$this->load->view('template/index.php');
+		$data['datatransaksi'] = $this->M_Setting->datatransaksi();
+		$data['datatujuan'] = $this->M_Setting->datatujuan();
+		$data['datastaf'] = $this->M_Setting->datastaf();
+		$data['transaksiperbulan'] = $this->M_Setting->transaksiperbulan();
+		$this->load->view('template/index.php', $data);
 		$this->load->view('template/footer.php');
 	}
 }
